@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+    <preference>
+        <name>org.zkoss.zk.ui.WebApp.name</name>
+        <value>Zk MVVM Crud</value>
+    </preference>
+            
+    <device-config>
+        <device-type>ajax</device-type>    
+        <timeout-uri></timeout-uri>        
+    </device-config>
+    
+    <client-config>
+        <init-crash-script>        
+        </init-crash-script>
+    </client-config>
+           
+    <!--Messagebox default action to disable all window modal animation--> 
+    <preference>
+        <name>org.zkoss.zul.Window.defaultActionOnShow</name>
+        <value></value>
+    </preference>
+            
+    <!--choose preference buildin ZK themes-->
+    <library-property>
+        <name>org.zkoss.theme.preferred</name>
+        <value>breeze</value>        
+    </library-property>
+    
+    <system-config>
+        <max-upload-size>10240</max-upload-size>
+    </system-config>
+            
+    <session-config>        
+        <device-type>ajax</device-type>
+        <automatic-timeout>true</automatic-timeout>
+        <timeout-uri>/timeout.jsp</timeout-uri>
+        <!--
+            to protect user from open multi tab browser access.
+            max=2, for main desktop session & openen popup session.
+        -->        
+        <max-desktops-per-session>2</max-desktops-per-session>                
+        <!--specifies the maximum allowed number of concurrent server-push connections per session--> 
+        <max-pushes-per-session>10</max-pushes-per-session>
+        <!--specifies the maximum allowed number of concurrent requests per session. Each time a user 
+        types an URL at the browser, it creates a request and the request ends after the response is 
+        sent to the browser. In other words, this number controls how many concurrent requests the same 
+        user can send.--> 
+        <max-requests-per-session>5</max-requests-per-session>        
+        <!-- 900 seconds (15 minutes) to timeout if any event not occured.
+        It specifies the time, in seconds, between client requests before a session is invalidated. 
+        A negative time indicates the session should never timeout. The default zero means to use the 
+        system default (which is usually specified in web.xml). -->
+        <session-timeout>900</session-timeout>
+        <!--It specifies whether to keep the session alive, when receiving the onTimer event.-->                 
+        <timer-keep-alive>false</timer-keep-alive>        
+    </session-config>
+            
+    <language-mapping>
+        <language-name>xml</language-name>
+        <extension>svg</extension>
+    </language-mapping>
+    
+    <language-mapping>
+        <language-name>xml</language-name>
+        <extension>xml2html</extension>
+    </language-mapping>    
+    
+    <language-addon>
+        <component>
+            <component-name>button</component-name>
+            <extends>button</extends>
+            <property>
+                <property-name>autodisable</property-name>
+                <property-value>self</property-value>
+            </property>
+        </component>
+    </language-addon>       
+    
+    <!--extension-->
+    <library-property>
+        <name>org.zkoss.zk.WPD.cache</name>
+        <value>false</value>
+    </library-property>
+    <library-property>
+        <name>org.zkoss.zk.WCS.cache</name>
+        <value>false</value>
+    </library-property>
+    
+    <disable-event-thread>false</disable-event-thread>
+    
+    <library-property>
+        <name>org.zkoss.bind.appConverters</name>
+        <value>
+            stringListConverter=com.mkdika.zkmvvmcrud.web.converter.StringListConverter            
+        </value>
+    </library-property>                
+</zk>

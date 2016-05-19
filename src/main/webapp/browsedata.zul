@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="shortcut icon" href="/magnifier.ico" ?>
+<?page title="Zk MVVM CRUD | Browse Data" contentType="text/html;charset=UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <style> 
+        .z-window-content {
+        border: 1px solid #cfcfcf;
+        margin: 0;
+        padding: 0px;
+        background: #fff;
+        overflow: hidden;
+        zoom: 1;
+        }
+        .z-grid-body .z-cell {
+        font-family: Arial,Sans-serif;
+        font-size: 12px;
+        padding: 0px;
+        line-height: 24px;
+        overflow: hidden;
+        }
+        body {
+        margin: 0px;
+        padding: 0px;
+        }  
+        
+        .numbox {
+        color: #555 !important; 
+        font-size: 13px !important; 
+        font-family: Verdana, Arial, Helvetica, sans-serif !important;    
+        text-align: right;
+        }
+    </style>
+    <window id="windowbrowse" border="normal" width="90%" height="500px"
+            position="center" style="padding: 0px 3px 5px 3px;" closable="true" maximizable="false" minimizable="false"
+            mode="modal" shadow="false" sizable="true" onCancel="self.onClose();"
+            apply="org.zkoss.bind.BindComposer" 
+            validationMessages="@id('vmsgs')" viewModel="@id('vm') @init('com.mkdika.zkmvvmcrud.web.BrowseData')" >            
+        <caption id="caption" label="Zk MVVM CRUD | Browse Data" style="margin: 0px 0px 0px 10px;vertical-align: middle;padding:0px 15px 0px 0px;font-weight: bold;font-size: 10pt; font-family: Verdana, Arial, Helvetica, sans-serif;color:#333;"/>
+        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+        <custom-attributes org.zkoss.zul.listbox.initRodSize="13"/>  
+        <listbox id="listboxData" width="100%"  mold="default" fixedLayout="true" height="100%" 
+                 hflex="1" vflex="1" model="@load(vm.persons)" 
+                 selectedItem="@bind(vm.personSelected)" onSelect="@command('listboxSelected',window=windowbrowse)">
+            <listhead sizable="true">                
+                <listheader label="Fist Name"  align="left" sort="auto" />
+                <listheader label="Last Name"  align="left" sort="auto" />                
+                <listheader label="Birthday" width="130px" align="center" sort="auto" />
+                <listheader label="Email" width="200px" align="left" sort="auto" />
+                <listheader label="Phone" width="200px" align="left" sort="auto" />                                                
+            </listhead>
+            <template name="model" var="item" status="s">
+                <listitem>
+                    <listcell label="@load(item.firstname)"/>
+                    <listcell label="@load(item.lastname)"/>                    
+                    <listcell label="@load(item.birthday) @converter('formatedDate', format='dd/MM/yyyy')"/>
+                    <listcell label="@load(item.email)"/>
+                    <listcell label="@load(item.phonenumber)"/>                    
+                </listitem>
+            </template>
+        </listbox> 
+    </window>        
+
+</zk>

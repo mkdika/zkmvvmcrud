@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="shortcut icon" href="/favicon.ico" ?>
+<?page title="Zk MVVM CRUD" contentType="text/html;charset=UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul" >
+    <style> 
+        .z-window-content {
+        border: 1px solid #cfcfcf;
+        margin: 0;
+        padding: 0px;
+        background: #fff;
+        overflow: hidden;
+        zoom: 1;
+        }
+        .z-grid-body .z-cell {
+        font-family: Arial,Sans-serif;
+        font-size: 12px;
+        padding: 0px;
+        line-height: 24px;
+        overflow: hidden;
+        }
+        body {
+        margin: 0px;
+        padding: 0px;
+        }  
+        
+        .numbox {
+        color: #555 !important; 
+        font-size: 13px !important; 
+        font-family: Verdana, Arial, Helvetica, sans-serif !important;    
+        text-align: right;
+        }
+    </style>
+    <window closable="false" id="windowmain" shadow="false" border="normal" width="100%" height="100%"
+            position="center" style="padding: 0px 3px 5px 3px;"
+            apply="org.zkoss.bind.BindComposer" 
+            validationMessages="@id('vmsgs')" viewModel="@id('vm') @init('com.mkdika.zkmvvmcrud.web.Index')" >            
+        <caption id="caption" label="@load(vm.appInfo)" style="margin: 0px 0px 0px 10px;vertical-align: middle;padding:0px 15px 0px 0px;font-weight: bold;font-size: 10pt; font-family: Verdana, Arial, Helvetica, sans-serif;color:#333;"/>
+        <toolbar>
+            <toolbarbutton width="38px" height="40px" image="/assets/image/add.png" tooltiptext="New"
+                           visible="@load(vm.addState.visible)"  disabled="@load(vm.addState.disabled)" onClick="@command('addClick')"/>                                    
+            <toolbarbutton width="38px" height="40px" image="/assets/image/del.png" tooltiptext="Delete" 
+                           visible="@load(vm.delState.visible)"  disabled="@load(vm.delState.disabled)" onClick="@command('delClick')"/>                        
+            <toolbarbutton width="38px" height="40px" image="/assets/image/save.png" tooltiptext="Save"            
+                           visible="@load(vm.saveState.visible)"  disabled="@load(vm.saveState.disabled)" onClick="@command('saveClick')" />                         
+            <toolbarbutton width="38px" height="40px" image="/assets/image/cancel.png" tooltiptext="Cancel"
+                           visible="@load(vm.cancelState.visible)"  disabled="@load(vm.cancelState.disabled)" onClick="@command('cancelClick')"/>                         
+            <toolbarbutton width="38px" height="40px" image="/assets/image/browse.png" tooltiptext="Browse"
+                           visible="@load(vm.browseState.visible)"  disabled="@load(vm.browseState.disabled)" onClick="@command('browseClick')"/>                                     
+            <toolbarbutton width="38px" height="40px" image="/assets/image/info.png" tooltiptext="Information"
+                           visible="@load(vm.infoState.visible)"  disabled="@load(vm.infoState.disabled)" onClick="@command('infoClick')"/>
+        </toolbar>
+        <grid> 
+            <columns>
+                <column width="120px" />
+                <column width="" />
+                <column width="120px" />
+                <column width="" />
+            </columns>              
+            <rows>                
+                <row>
+                    First Name
+                    <textbox id="tbfirstname" width="300px" maxlength="255" disabled="@load(empty vm.selected)" errorMessage="@load(vmsgs[self])"
+                             value="@bind(vm.selected.firstname) @save(vm.selected.firstname, before='saveClick') @validator('beanValidator')" />                             
+                    Last Name
+                    <textbox id="tblastname" width="300px" maxlength="255" disabled="@load(empty vm.selected)" errorMessage="@load(vmsgs[self])"
+                             value="@bind(vm.selected.lastname) @save(vm.selected.lastname, before='saveClick') @validator('beanValidator')" />                                                
+                </row> 
+                <row>
+                    Gender
+                    <combobox model="@load(vm.genderList)"  id="cbgender" mold="rounded" autodrop="true" autocomplete="true" 
+                              errorMessage="@load(vmsgs[self])" width="150px" disabled="@load(empty vm.selected)"
+                              value="@bind(vm.selected.gender) @converter('com.mkdika.zkmvvmcrud.web.converter.StringListConverter') @save(vm.selected.gender, before='saveClick') @validator('beanValidator')" >
+                        <template name="model" >
+                            <comboitem label="@load(each)" value="@load(each)" />
+                        </template>
+                    </combobox>  
+                    Birthday
+                    <datebox id="dbbirthday" width="150px" format="dd/MM/yyyy" disabled="@load(empty vm.selected)" errorMessage="@load(vmsgs[self])"
+                             value="@bind(vm.selected.birthday) @save(vm.selected.birthday, before='saveClick')  @validator('beanValidator')" />
+                </row>               
+                <row>
+                    ID Type
+                    <combobox model="@load(vm.idTypeList)"  id="cbidtype" mold="rounded" autodrop="true" autocomplete="true" 
+                              errorMessage="@load(vmsgs[self])" width="150px" disabled="@load(empty vm.selected)"
+                              value="@bind(vm.selected.idtype) @converter('com.mkdika.zkmvvmcrud.web.converter.StringListConverter') @save(vm.selected.idtype, before='saveClick') @validator('beanValidator')" >
+                        <template name="model" >
+                            <comboitem label="@load(each)" value="@load(each)" />
+                        </template>
+                    </combobox>  
+                    ID Number
+                    <textbox id="tbidnumber" width="300px" maxlength="50" disabled="@load(empty vm.selected)" errorMessage="@load(vmsgs[self])"
+                             value="@bind(vm.selected.idnumber) @save(vm.selected.idnumber, before='saveClick') @validator('beanValidator')" />
+                </row>
+                <row>
+                    Email
+                    <textbox id="tbemail" width="300px" maxlength="100" disabled="@load(empty vm.selected)" errorMessage="@load(vmsgs[self])"
+                             value="@bind(vm.selected.email) @save(vm.selected.email, before='saveClick') @validator('beanValidator')" />
+                    Phone No
+                    <textbox id="tbphonenumber" width="300px" maxlength="50" disabled="@load(empty vm.selected)" errorMessage="@load(vmsgs[self])"
+                             value="@bind(vm.selected.phonenumber) @save(vm.selected.phonenumber, before='saveClick') @validator('beanValidator')" />
+                </row>
+                <row>
+                    Address
+                    <textbox id="tbaddress" width="100%" maxlength="255" disabled="@load(empty vm.selected)" errorMessage="@load(vmsgs[self])" rows="3"
+                             value="@bind(vm.selected.address) @save(vm.selected.address, before='saveClick') @validator('beanValidator')" />
+                    Id
+                    <label value="@load(vm.selected.id)"/>
+                </row>
+                <row>
+                    <cell colspan="4">
+                        <custom-attributes org.zkoss.zul.grid.rod="false"/>                         
+                        <grid id="gridExp" height="350px"  sizedByContent="true" span="true" width="100%"
+                              model="@load(vm.experiences)" >
+                            <frozen start="0" columns="1"/>
+                            <auxhead>
+                                <auxheader colspan="1" rowspan="1">
+                                    <button width="100%" image="/assets/image/16/add.png" onClick="@command('addExpItem',gridId=gridExp.id)" disabled="@load(empty vm.selected)" />
+                                </auxheader>                                
+                                <auxheader label=" LIST OF EXPERIENCES" colspan="23" align=""/>                                
+                            </auxhead> 
+                            <columns sizable="true">
+                                <column width="60px" label="" align="center"/>                                
+                                <column width="150px" label="Comp.Name" align="center"/>
+                                <column width="130px" label="Comp.Sector" align="center"/>
+                                <column width="150px" label="Address 1" align="center"/>
+                                <column width="150px" label="Address 2" align="center"/>
+                                <column width="100px" label="City" align="center"/>
+                                <column width="100px" label="Province" align="center"/>
+                                <column width="100px" label="Country" align="center"/>
+                                <column width="100px" label="Zipcode" align="center"/>
+                                <column width="100px" label="Email" align="center"/>
+                                <column width="100px" label="Website" align="center"/>
+                                <column width="100px" label="Position" align="center"/>
+                                <column width="120px" label="From" align="center"/>
+                                <column width="120px" label="To" align="center"/>
+                                <column width="120px" label="Salary" align="center"/>
+                                <column width="120px" label="Meal Allo" align="center"/>
+                                <column width="120px" label="Transport Allo" align="center"/>
+                                <column width="120px" label="Other Allo" align="center"/>
+                                <column width="120px" label="Bonus" align="center"/>
+                                <column width="120px" label="Insurance" align="center"/>
+                                <column width="200px" label="Duty" align="center"/>
+                                <column width="200px" label="Achievement" align="center"/>
+                                <column width="200px" label="Reason Leaving" align="center"/>
+                                <column width="200px" label="Note" align="center"/>                                
+                            </columns>          
+                            <template name="model" var="item">
+                                <row>
+                                    <button width="40px" image="/assets/image/16/trash.png" onClick="@command('delExpItem',data=item)" />
+                                    <textbox value="@bind(item.companyname) @save(item.companyname, before='saveClick') @validator('beanValidator')" errorMessage="@load(vmsgs[self])" width="100%"/>
+                                    <combobox model="@load(vm.sectorList)" mold="rounded" autodrop="true" autocomplete="true" 
+                                              errorMessage="@load(vmsgs[self])" width="100%"
+                                              value="@bind(item.companysector) @save(item.companysector, before='saveClick') @converter('com.mkdika.zkmvvmcrud.web.converter.StringListConverter') @validator('beanValidator')" >
+                                        <template name="model" >
+                                            <comboitem label="@load(each)" value="@load(each)" />
+                                        </template>
+                                    </combobox>                                                                        
+                                    <textbox value="@bind(item.companyaddress1)" width="100%"/>                                    
+                                    <textbox value="@bind(item.companyaddress2)" width="100%"/>
+                                    <textbox value="@bind(item.companycity)" width="100%"/>
+                                    <textbox value="@bind(item.companyprovince)" width="100%"/>
+                                    <textbox value="@bind(item.companycountry)" width="100%"/>
+                                    <textbox value="@bind(item.companyzipcode)" width="100%"/>
+                                    <textbox value="@bind(item.companyemail)" width="100%"/>
+                                    <textbox value="@bind(item.companywebsite)" width="100%"/>
+                                    <textbox value="@bind(item.position) @save(item.position, before='saveClick') @validator('beanValidator')" errorMessage="@load(vmsgs[self])" width="100%"/>
+                                    <datebox value="@bind(item.dtfrom) @save(item.dtfrom, before='saveClick') @validator('beanValidator')" errorMessage="@load(vmsgs[self])" format="dd/MM/yyyy" width="100%"/>
+                                    <datebox value="@bind(item.dtto) @save(item.dtto, before='saveClick') @validator('beanValidator')" errorMessage="@load(vmsgs[self])" format="dd/MM/yyyy" width="100%"/>
+                                    <decimalbox value="@bind(item.salary)" format="#,###.00" width="100%" class="numbox"/>
+                                    <decimalbox value="@bind(item.mealallowance)" format="#,###.00" width="100%" class="numbox"/>
+                                    <decimalbox value="@bind(item.transportallowance)" format="#,###.00" width="100%" class="numbox"/>
+                                    <decimalbox value="@bind(item.otherallowance)" format="#,###.00" width="100%" class="numbox"/>
+                                    <decimalbox value="@bind(item.bonus)" format="#,###.0" width="100%" class="numbox"/>
+                                    <decimalbox value="@bind(item.insurance)" format="#,###.0" width="100%" class="numbox"/>
+                                    <textbox value="@bind(item.duty)" width="100%"/>
+                                    <textbox value="@bind(item.achievement)" width="100%"/>
+                                    <textbox value="@bind(item.leavingreason) @save(item.leavingreason, before='saveClick') @validator('beanValidator')" errorMessage="@load(vmsgs[self])" width="100%"/>
+                                    <textbox value="@bind(item.note)" width="100%"/>
+                                </row>                                
+                            </template>                            
+                        </grid>    
+                    </cell>
+                </row>
+            </rows>
+        </grid>                
+    </window>
+</zk>

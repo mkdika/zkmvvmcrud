@@ -284,7 +284,6 @@ public class Index {
     }
 
     public void scrollToBottom(String gridId) {
-//        Clients.evalJavaScript("zk.Widget.$('$" + gridId + "').ebody.scrollTop = zk.Widget.$('$" + gridId + "').ebody.scrollHeight");        
         Clients.evalJavaScript("$(zk.Widget.$('$" + gridId + "').ebody).scrollTop(zk.Widget.$('$" + gridId + "').ebodyrows.scrollHeight);setTimeout(function(){$(zk.Widget.$('$" + gridId + "').ebody).scrollTop(zk.Widget.$('$" + gridId + "').ebodyrows.scrollHeight);},1000)");
 
     }

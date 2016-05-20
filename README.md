@@ -1,5 +1,5 @@
 # zkmvvmcrud #
-ZK MVVM CRUD sample proof of concept project
+ZK MVVM CRUD Sample & Proof of Concept Project
 
 ![alt text](ss1.jpg "Application Preview 1")
 
@@ -20,6 +20,7 @@ ZK MVVM CRUD sample proof of concept project
 - ZK Framework: 7.0.3CE & 7.0.3PE-Eval
 - Maven:3.3.x
 - Database: PostgreSQL 9.4
+- IDE: NetBeans 8.1
 
 _For detail information about library & version view pom.xml_
 

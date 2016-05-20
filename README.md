@@ -27,6 +27,7 @@ _For detail information about library & version view pom.xml_
 - Create database & schema with name 'testing' or you can run the 'init.sql' script within the resource folder.
 - Both default username & password for postgreSQL is 'postgres' or you could make a change for Connection String in application properties file within the resource folder.
 - For initial example data, you can run 'com.mkdika.zkmvvmcrud.cli.TestCLI' class directly. Change the variable PERSON\_NAME & TOTAL\_DETAIL as your needs.
+- Servlet container server: Apache Tomcat 7.x, Jetty, etc to run application.
 
 ## Note ##
 If available...

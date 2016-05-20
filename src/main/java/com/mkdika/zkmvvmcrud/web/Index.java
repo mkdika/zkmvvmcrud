@@ -39,10 +39,14 @@ public class Index {
     private ToolbarWrapper saveState;
     private ToolbarWrapper cancelState;
     private ToolbarWrapper browseState;
-    private ToolbarWrapper infoState;   
+    private ToolbarWrapper infoState; 
+    
+    private String gridId;
 
     @Init
-    public void init() {
+    public void init(@BindingParam("gridId") String gridId) {
+        this.gridId = gridId;        
+        
         // Init toolbar
         setAddState(new ToolbarWrapper(false, false));
         setDelState(new ToolbarWrapper(false, false));
@@ -106,6 +110,7 @@ public class Index {
         getSelected().setExperiences(new ArrayList<TbExperience>());
         setExperiences(new ListModelList<>(getSelected().getExperiences()));
         btnStateNew();
+        initScrollBar(gridId);
     }
 
     @Command
@@ -162,6 +167,7 @@ public class Index {
             setSelected(personSelected);
             setExperiences(new ListModelList<>(personSelected.getExperiences()));
             btnStateEdit();
+            initScrollBar(gridId);
         }                
     }
     
@@ -179,7 +185,7 @@ public class Index {
     }
 
     @Command
-    public void addExpItem(@BindingParam("gridId") String gridId) {
+    public void addExpItem() {
         TbExperience t = new TbExperience(getSelected());
         experiences.add(t);
         scrollToBottom(gridId);
@@ -278,6 +284,12 @@ public class Index {
     }
 
     public void scrollToBottom(String gridId) {
-        Clients.evalJavaScript("zk.Widget.$('$" + gridId + "').ebody.scrollTop = zk.Widget.$('$" + gridId + "').ebody.scrollHeight");
+//        Clients.evalJavaScript("zk.Widget.$('$" + gridId + "').ebody.scrollTop = zk.Widget.$('$" + gridId + "').ebody.scrollHeight");        
+        Clients.evalJavaScript("$(zk.Widget.$('$" + gridId + "').ebody).scrollTop(zk.Widget.$('$" + gridId + "').ebodyrows.scrollHeight);setTimeout(function(){$(zk.Widget.$('$" + gridId + "').ebody).scrollTop(zk.Widget.$('$" + gridId + "').ebodyrows.scrollHeight);},1000)");
+
+    }
+    
+    public void initScrollBar(String gridId) {
+        Clients.evalJavaScript("var index = 1; var interval = setInterval(function(){if(zk.Widget.$('$" +gridId+ "')!=null){for(var i = 0;i<zk.Widget.$('$" +gridId+ "').ebodyrows.scrollHeight;i+=10){$(zk.Widget.$('$" +gridId+ "').ebody).scrollTop(i);}clearInterval(interval);$(zk.Widget.$('$" +gridId+ "').ebody).scrollTop(0);}},1)");
     }
 }

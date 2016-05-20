@@ -33,11 +33,11 @@
     <window closable="false" id="windowmain" shadow="false" border="normal" width="100%" height="100%"
             position="center" style="padding: 0px 3px 5px 3px;"
             apply="org.zkoss.bind.BindComposer" 
-            validationMessages="@id('vmsgs')" viewModel="@id('vm') @init('com.mkdika.zkmvvmcrud.web.Index')" >            
+            validationMessages="@id('vmsgs')" viewModel="@id('vm') @init('com.mkdika.zkmvvmcrud.web.Index',gridId='gridExp')" >            
         <caption id="caption" label="@load(vm.appInfo)" style="margin: 0px 0px 0px 10px;vertical-align: middle;padding:0px 15px 0px 0px;font-weight: bold;font-size: 10pt; font-family: Verdana, Arial, Helvetica, sans-serif;color:#333;"/>
         <toolbar>
             <toolbarbutton width="38px" height="40px" image="/assets/image/add.png" tooltiptext="New"
-                           visible="@load(vm.addState.visible)"  disabled="@load(vm.addState.disabled)" onClick="@command('addClick')"/>                                    
+                           visible="@load(vm.addState.visible)" disabled="@load(vm.addState.disabled)" onClick="@command('addClick')"/>                                    
             <toolbarbutton width="38px" height="40px" image="/assets/image/del.png" tooltiptext="Delete" 
                            visible="@load(vm.delState.visible)"  disabled="@load(vm.delState.disabled)" onClick="@command('delClick')"/>                        
             <toolbarbutton width="38px" height="40px" image="/assets/image/save.png" tooltiptext="Save"            
@@ -114,7 +114,7 @@
                             <frozen start="0" columns="1"/>
                             <auxhead>
                                 <auxheader colspan="1" rowspan="1">
-                                    <button width="100%" image="/assets/image/16/add.png" onClick="@command('addExpItem',gridId=gridExp.id)" disabled="@load(empty vm.selected)" />
+                                    <button width="100%" image="/assets/image/16/add.png" onClick="@command('addExpItem')" disabled="@load(empty vm.selected)" />
                                 </auxheader>                                
                                 <auxheader label=" LIST OF EXPERIENCES" colspan="23" align=""/>                                
                             </auxhead> 

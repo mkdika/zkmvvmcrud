@@ -17,11 +17,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class TestCLI {
 
-    private static final int TOTAL_DETAIL = 50;
     private static final String[] PERSON_NAME = {"Maikel Chandika", "Budi Gunawan", "Jacky Cheung", "Albert Einstin", "Jackson Lee",
         "Sher Jo", "Steve Vai", "Joe Satriani", "Joseph Ray", "Justin Bibir", "Steve Jobs",
         "James Gosling", "Zulfian Kamal", "Darwin Wong", "Otto Motoo", "Peter Lim", "Cornelius Brutos",
         "Daniel Mars", "Fernandes Gaul"};
+    private static final int TOTAL_DETAIL = 50;
 
     /**
      * @param args the command line arguments

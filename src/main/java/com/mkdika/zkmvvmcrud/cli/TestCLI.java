@@ -79,5 +79,4 @@ public class TestCLI {
     public static int ranInt(int Min, int Max) {
         return (int) (Math.random() * (Max - Min)) + Min;
     }
-
 }

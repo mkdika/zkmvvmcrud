@@ -119,7 +119,8 @@
                                 <auxheader label=" LIST OF EXPERIENCES" colspan="23" align=""/>                                
                             </auxhead> 
                             <columns sizable="true">
-                                <column width="60px" label="" align="center"/>                                
+                                <column width="60px" label="" align="center"/> 
+                                <column width="40px" label="#" align="center"/>                                
                                 <column width="150px" label="Comp.Name" align="center"/>
                                 <column width="130px" label="Comp.Sector" align="center"/>
                                 <column width="150px" label="Address 1" align="center"/>
@@ -147,6 +148,7 @@
                             <template name="model" var="item">
                                 <row>
                                     <button width="40px" image="/assets/image/16/trash.png" onClick="@command('delExpItem',data=item)" />
+                                    <label width="100%" value="@load((itemStatus.index+1))" />
                                     <textbox value="@bind(item.companyname) @save(item.companyname, before='saveClick') @validator('beanValidator')" errorMessage="@load(vmsgs[self])" width="100%"/>
                                     <combobox model="@load(vm.sectorList)" mold="rounded" autodrop="true" autocomplete="true" 
                                               errorMessage="@load(vmsgs[self])" width="100%"

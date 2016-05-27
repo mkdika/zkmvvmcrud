@@ -1,5 +1,5 @@
 # zkmvvmcrud #
-ZK MVVM CRUD Sample & Proof of Concept Project
+ZK MVVM CRUD Spring Data JPA Sample & Proof of Concept Project
 
 ![alt text](ss1.jpg "Application Preview 1")
 

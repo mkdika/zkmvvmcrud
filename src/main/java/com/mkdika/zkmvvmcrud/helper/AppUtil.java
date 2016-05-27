@@ -1,4 +1,3 @@
-
 package com.mkdika.zkmvvmcrud.helper;
 
 import com.mkdika.zkmvvmcrud.repository.ServiceRepository;
@@ -12,12 +11,11 @@ import org.zkoss.zkplus.spring.SpringUtil;
 public class AppUtil {
     
     private static AppService appService;
-    
+       
     public static ServiceRepository svcRepo() {
         if (appService == null) {
             appService = (AppService) SpringUtil.getBean("appService");
         }
         return appService.getSvcRepo();
-    }
-    
+    }       
 }

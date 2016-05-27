@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource(value="classpath:application.properties")
 public class SpringConfig {
 
+    
     private static final String HIBERNATE_PACKAGES_TO_SCAN = "com.mkdika.zkmvvmcrud.entity";
 
     @Resource
@@ -81,5 +82,4 @@ public class SpringConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
-
 }

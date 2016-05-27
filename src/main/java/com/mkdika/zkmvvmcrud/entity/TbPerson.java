@@ -14,7 +14,6 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OptimisticLock;
 import org.hibernate.validator.constraints.Email;

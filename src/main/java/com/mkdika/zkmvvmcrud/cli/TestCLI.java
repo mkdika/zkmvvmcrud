@@ -4,8 +4,10 @@ import com.mkdika.zkmvvmcrud.config.SpringConfig;
 import com.mkdika.zkmvvmcrud.entity.TbExperience;
 import com.mkdika.zkmvvmcrud.entity.TbPerson;
 import com.mkdika.zkmvvmcrud.repository.ServiceRepository;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -21,7 +23,12 @@ public class TestCLI {
         "Sher Jo", "Steve Vai", "Joe Satriani", "Joseph Ray", "Justin Bibir", "Steve Jobs",
         "James Gosling", "Zulfian Kamal", "Darwin Wong", "Otto Motoo", "Peter Lim", "Cornelius Brutos",
         "Daniel Mars", "Fernandes Gaul"};
-    private static final int TOTAL_DETAIL = 50;
+    private static final int TOTAL_DETAIL = 100;
+
+    /**
+     *
+     */
+    public static final SimpleDateFormat sdf1 = new SimpleDateFormat("s.SS");
 
     /**
      * @param args the command line arguments
@@ -31,6 +38,9 @@ public class TestCLI {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
         ServiceRepository svc = ctx.getBean(ServiceRepository.class);
 
+        Date dt1 = new Date();
+
+        // BEGIN - Insert Process
         for (String s : PERSON_NAME) {
             TbPerson p = new TbPerson();
             p.setFirstname(s.split(" ")[0]);
@@ -63,8 +73,24 @@ public class TestCLI {
                 System.out.println("Save Failed!\n" + e.getLocalizedMessage());
             }
         }
+        // END - Insert Process
+
+        // BEGIN - Read Process
+        System.out.println("Load Data");
+        List<TbPerson> ts = svc.findAllByOrderByFirstnameAsc();
+        for (TbPerson t : ts) {
+            System.out.println(t);
+            for (TbExperience e : t.getExperiences()) {
+                System.out.println("\t" + e);
+            }
+        }
+        // BEGIN - READ Process
+
+        Date dt2 = new Date();
+        System.out.println("Process Time: " + processTime(dt1, dt2) + " Sec.");
     }
 
+    @SuppressWarnings("deprecation")
     private static Date createDate(int d, int m, int y) {
         Date dt = new Date();
         dt.setDate(d);
@@ -78,5 +104,12 @@ public class TestCLI {
 
     public static int ranInt(int Min, int Max) {
         return (int) (Math.random() * (Max - Min)) + Min;
+    }
+
+    public static String processTime(Date dt1, Date dt2) {
+        long milliseconds1 = dt1.getTime();
+        long milliseconds2 = dt2.getTime();
+        long diff = milliseconds2 - milliseconds1;
+        return sdf1.format(new Date(diff));
     }
 }

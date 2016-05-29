@@ -4,7 +4,6 @@ import com.mkdika.zkmvvmcrud.config.SpringConfig;
 import com.mkdika.zkmvvmcrud.entity.TbExperience;
 import com.mkdika.zkmvvmcrud.entity.TbPerson;
 import com.mkdika.zkmvvmcrud.repository.ServiceRepository;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,13 +21,8 @@ public class TestCLI {
     private static final String[] PERSON_NAME = {"Maikel Chandika", "Budi Gunawan", "Jacky Cheung", "Albert Einstin", "Jackson Lee",
         "Sher Jo", "Steve Vai", "Joe Satriani", "Joseph Ray", "Justin Bibir", "Steve Jobs",
         "James Gosling", "Zulfian Kamal", "Darwin Wong", "Otto Motoo", "Peter Lim", "Cornelius Brutos",
-        "Daniel Mars", "Fernandes Gaul"};
-    private static final int TOTAL_DETAIL = 100;
-
-    /**
-     *
-     */
-    public static final SimpleDateFormat sdf1 = new SimpleDateFormat("s.SS");
+        "Daniel Mars", "Fernandes Gaul","Jony John"};
+    private static final int TOTAL_DETAIL = 10000;
 
     /**
      * @param args the command line arguments
@@ -36,9 +30,7 @@ public class TestCLI {
     public static void main(String[] args) {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
-        ServiceRepository svc = ctx.getBean(ServiceRepository.class);
-
-        Date dt1 = new Date();
+        ServiceRepository svc = ctx.getBean(ServiceRepository.class);      
 
         // BEGIN - Insert Process
         for (String s : PERSON_NAME) {
@@ -67,27 +59,16 @@ public class TestCLI {
             }
 
             try {
-                svc.save(p);
-                System.out.println("Save Successful! " + s);
+                svc.save(p);                
             } catch (javax.persistence.RollbackException e) {
                 System.out.println("Save Failed!\n" + e.getLocalizedMessage());
             }
         }
         // END - Insert Process
 
-        // BEGIN - Read Process
-        System.out.println("Load Data");
-        List<TbPerson> ts = svc.findAllByOrderByFirstnameAsc();
-        for (TbPerson t : ts) {
-            System.out.println(t);
-            for (TbExperience e : t.getExperiences()) {
-                System.out.println("\t" + e);
-            }
-        }
-        // BEGIN - READ Process
-
-        Date dt2 = new Date();
-        System.out.println("Process Time: " + processTime(dt1, dt2) + " Sec.");
+        // BEGIN - Read Process        
+        List<TbPerson> ts = svc.findAllByOrderByFirstnameAsc();        
+        // BEGIN - READ Process       
     }
 
     @SuppressWarnings("deprecation")
@@ -104,12 +85,5 @@ public class TestCLI {
 
     public static int ranInt(int Min, int Max) {
         return (int) (Math.random() * (Max - Min)) + Min;
-    }
-
-    public static String processTime(Date dt1, Date dt2) {
-        long milliseconds1 = dt1.getTime();
-        long milliseconds2 = dt2.getTime();
-        long diff = milliseconds2 - milliseconds1;
-        return sdf1.format(new Date(diff));
-    }
+    }  
 }

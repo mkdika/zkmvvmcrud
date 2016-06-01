@@ -16,6 +16,10 @@ public class AppService {
     @Autowired
     private ServiceRepository serviceRepository;
     
+    /**
+     *
+     * @return
+     */
     public ServiceRepository getSvcRepo() {
         return this.serviceRepository;
     }            

@@ -17,22 +17,37 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * For testing middle ware (Business Layer) purpose.
  */
 public class TestCLI {
-
+    
     private static final String[] PERSON_NAME = {"Maikel Chandika", "Budi Gunawan", "Jacky Cheung", "Albert Einstin", "Jackson Lee",
         "Sher Jo", "Steve Vai", "Joe Satriani", "Joseph Ray", "Justin Bibir", "Steve Jobs",
         "James Gosling", "Zulfian Kamal", "Darwin Wong", "Otto Motoo", "Peter Lim", "Cornelius Brutos",
-        "Daniel Mars", "Fernandes Gaul","Jony John"};
+        "Daniel Mars", "Fernandes Gaul", "Jony John"};
     private static final int TOTAL_DETAIL = 10000;
+    
+    private static ApplicationContext ctx;    
+    private static ServiceRepository svc;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
-        ServiceRepository svc = ctx.getBean(ServiceRepository.class);      
+        // Init the Spring Application Context
+        initAppContext();
+        
+        // run the benchmark Insert
+        benchmarkInsert();
+        
+        // run the benchmark Read
+        benchmarkRead();
+    }
 
-        // BEGIN - Insert Process
+    private static void initAppContext() {
+        ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+        svc = ctx.getBean(ServiceRepository.class);
+    }
+
+    private static void benchmarkInsert() {       
         for (String s : PERSON_NAME) {
             TbPerson p = new TbPerson();
             p.setFirstname(s.split(" ")[0]);
@@ -59,16 +74,15 @@ public class TestCLI {
             }
 
             try {
-                svc.save(p);                
+                svc.save(p);
             } catch (javax.persistence.RollbackException e) {
                 System.out.println("Save Failed!\n" + e.getLocalizedMessage());
             }
-        }
-        // END - Insert Process
+        }        
+    }
 
-        // BEGIN - Read Process        
+    private static void benchmarkRead() {       
         List<TbPerson> ts = svc.findAllByOrderByFirstnameAsc();        
-        // BEGIN - READ Process       
     }
 
     @SuppressWarnings("deprecation")
@@ -85,5 +99,5 @@ public class TestCLI {
 
     public static int ranInt(int Min, int Max) {
         return (int) (Math.random() * (Max - Min)) + Min;
-    }  
+    }
 }

@@ -22,7 +22,7 @@ public class TestCLI {
         "Sher Jo", "Steve Vai", "Joe Satriani", "Joseph Ray", "Justin Bibir", "Steve Jobs",
         "James Gosling", "Zulfian Kamal", "Darwin Wong", "Otto Motoo", "Peter Lim", "Cornelius Brutos",
         "Daniel Mars", "Fernandes Gaul", "Jony John"};
-    private static final int TOTAL_DETAIL = 10000;
+    private static final int TOTAL_DETAIL = 1000;
     
     private static ApplicationContext ctx;    
     private static ServiceRepository svc;

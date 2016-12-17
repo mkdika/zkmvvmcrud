@@ -17,14 +17,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * For testing middle ware (Business Layer) purpose.
  */
 public class TestCLI {
-    
+
     private static final String[] PERSON_NAME = {"Maikel Chandika", "Budi Gunawan", "Jacky Cheung", "Albert Einstin", "Jackson Lee",
         "Sher Jo", "Steve Vai", "Joe Satriani", "Joseph Ray", "Justin Bibir", "Steve Jobs",
         "James Gosling", "Zulfian Kamal", "Darwin Wong", "Otto Motoo", "Peter Lim", "Cornelius Brutos",
         "Daniel Mars", "Fernandes Gaul", "Jony John"};
     private static final int TOTAL_DETAIL = 1000;
-    
-    private static ApplicationContext ctx;    
+
+    private static ApplicationContext ctx;
     private static ServiceRepository svc;
 
     /**
@@ -34,10 +34,10 @@ public class TestCLI {
 
         // Init the Spring Application Context
         initAppContext();
-        
+
         // run the benchmark Insert
         benchmarkInsert();
-        
+
         // run the benchmark Read
         benchmarkRead();
     }
@@ -47,7 +47,7 @@ public class TestCLI {
         svc = ctx.getBean(ServiceRepository.class);
     }
 
-    private static void benchmarkInsert() {       
+    private static void benchmarkInsert() {
         for (String s : PERSON_NAME) {
             TbPerson p = new TbPerson();
             p.setFirstname(s.split(" ")[0]);
@@ -70,7 +70,7 @@ public class TestCLI {
                 te.setDtfrom(new Date());
                 te.setDtto(new Date());
                 te.setLeavingreason("The Reason is out there.");
-                p.getExperiences().add(te);
+                p.getExperiences().add(te);                
             }
 
             try {
@@ -78,11 +78,11 @@ public class TestCLI {
             } catch (javax.persistence.RollbackException e) {
                 System.out.println("Save Failed!\n" + e.getLocalizedMessage());
             }
-        }        
+        }
     }
 
-    private static void benchmarkRead() {       
-        List<TbPerson> ts = svc.findAllByOrderByFirstnameAsc();        
+    private static void benchmarkRead() {
+        List<TbPerson> ts = svc.findAllByOrderByFirstnameAsc();
     }
 
     @SuppressWarnings("deprecation")

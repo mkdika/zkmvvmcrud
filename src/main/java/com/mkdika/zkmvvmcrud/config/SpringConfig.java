@@ -16,7 +16,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- *
+ *     
  * @author Maikel Chandika <mkdika@gmail.com>
  *
  * Alternative Configuration for common Spring XML Config file. Used Java Based

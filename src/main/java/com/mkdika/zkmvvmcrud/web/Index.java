@@ -291,4 +291,6 @@ public class Index {
     public void initScrollBar(String gridId) {
         Clients.evalJavaScript("var index = 1; var interval = setInterval(function(){if(zk.Widget.$('$" +gridId+ "')!=null){for(var i = 0;i<zk.Widget.$('$" +gridId+ "').ebodyrows.scrollHeight;i+=10){$(zk.Widget.$('$" +gridId+ "').ebody).scrollTop(i);}clearInterval(interval);$(zk.Widget.$('$" +gridId+ "').ebody).scrollTop(0);}},1)");
     }
+    
+    
 }
